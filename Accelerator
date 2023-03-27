@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if Accelerator folder already exists, create it if it doesn't
+if [ ! -d "Accelerator" ]; then
+  mkdir Accelerator
+fi
+
+# Set variables for information to be written to file
+datetime=$(date +"%Y-%m-%d %H:%M:%S")
+scriptname=$(basename "$0")
+osversion=$(sw_vers -productVersion)
+ramavailable=$(system_profiler SPHardwareDataType | grep "Memory" | awk '{print $2" "$3}')
+useruid=$(id -u)
+username=$(id -un)
+
+# Write information to file
+echo "# Run at $datetime by $username with UID $useruid" >> Accelerator/Test.txt
+echo "Script: $scriptname" >> Accelerator/Test.txt
+echo "OS version: $osversion" >> Accelerator/Test.txt
+echo "RAM available: $ramavailable" >> Accelerator/Test.txt
+echo "User: $username (UID $useruid)" >> Accelerator/Test.txt
+echo "" >> Accelerator/Test.txt
